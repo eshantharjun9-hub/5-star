@@ -60,8 +60,8 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
 
       const data = await res.json();
       setUser(data.user);
-      setRatings(data.ratings || []);
-      setItems(data.items || []);
+      setRatings(data.user.ratingsReceived || []);
+      setItems(data.user.items || []);
     } catch (error) {
       console.error("Error fetching profile data:", error);
     } finally {

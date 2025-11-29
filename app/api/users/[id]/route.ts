@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { z } from "zod";
+
+// UUID validation schema
+const userIdSchema = z.string().uuid("Invalid user ID");
 
 export async function GET(
   request: NextRequest,
@@ -7,6 +11,15 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+
+    // Validate user ID format
+    const validationResult = userIdSchema.safeParse(id);
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { error: "Invalid user ID format" },
+        { status: 400 }
+      );
+    }
 
     const user = await prisma.user.findUnique({
       where: { id },
@@ -64,11 +77,8 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({
-      user,
-      ratings: user.ratingsReceived,
-      items: user.items,
-    });
+    // Return user with embedded ratings and items (no redundant top-level fields)
+    return NextResponse.json({ user });
   } catch (error) {
     console.error("Error fetching user profile:", error);
     return NextResponse.json(
