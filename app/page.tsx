@@ -1,14 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui";
+import { Button } from "@/components/ui";
 import {
   Search,
   Shield,
-  MessageCircle,
-  Star,
   Zap,
-  Users,
   BookOpen,
   FlaskConical,
   Headphones,
@@ -18,6 +15,9 @@ import {
   Wrench,
   Palette,
   User,
+  RefreshCw,
+  MapPin,
+  Backpack,
 } from "lucide-react";
 
 // Phone mockup category data - moved outside component to prevent recreation on each render
@@ -96,40 +96,46 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Why QuickGrab?</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <FeatureCard
-            icon={<Shield className="h-10 w-10 text-orange-600 rounded-4xl " />}
-            title="AI Verified Students"
-            description="Every user is verified with their student ID using AI technology. Trade with confidence."
-          />
-          <FeatureCard
-            icon={<Search className="h-10 w-10 text-orange-600" />}
-            title="Smart Search"
-            description="AI-powered search understands what you need. Just describe it naturally."
-          />
-          <FeatureCard
-            icon={<MessageCircle className="h-10 w-10 text-orange-600" />}
-            title="Real-Time Chat"
-            description="Coordinate instantly with sellers. AI suggests safe meetup spots on campus."
-          />
-          <FeatureCard
-            icon={<Zap className="h-10 w-10 text-orange-600" />}
-            title="Escrow Payments"
-            description="Secure payments held until you confirm receipt. Full protection for buyers."
-          />
-          <FeatureCard
-            icon={<Star className="h-10 w-10 text-orange-600" />}
-            title="Trust Network"
-            description="Ratings, badges, and trust scores help you find reliable traders."
-          />
-          <FeatureCard
-            icon={<Users className="h-10 w-10 text-orange-600" />}
-            title="AI Moderation"
-            description="Automatic scam detection and fair dispute resolution powered by AI."
-          />
+      {/* Why QuickGrab Section */}
+      <section className="container mx-auto px-4 py-16 lg:py-24 bg-orange-50/50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-6">Why QuickGrab?</h2>
+          <p className="text-center text-gray-600 text-lg md:text-xl max-w-3xl mx-auto mb-16 leading-relaxed">
+            QuickGrab solves the daily problems students face on campus— buying essentials, renting items for short use, recovering lost belongings, and getting fast help from fellow students. Everything happens inside your campus, safely and instantly.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-x-8 lg:gap-x-16 gap-y-10 md:gap-y-12">
+            <WhyFeatureItem
+              icon={<Shield className="h-7 w-7 text-orange-600" strokeWidth={1.5} />}
+              title="Verified Students Only"
+              description="Every user is verified with their student ID for safe, trusted interactions."
+            />
+            <WhyFeatureItem
+              icon={<RefreshCw className="h-7 w-7 text-orange-600" strokeWidth={1.5} />}
+              title="Buy & Sell in Seconds"
+              description="List books, lab coats, gadgets, hostel items, and more – instantly and easily."
+            />
+            <WhyFeatureItem
+              icon={<Search className="h-7 w-7 text-orange-600" strokeWidth={1.5} />}
+              title="Rent What You Need"
+              description="Need a calculator, charger, or lab coat for one class? Rent instead of buying."
+            />
+            <WhyFeatureItem
+              icon={<Zap className="h-7 w-7 text-orange-600" strokeWidth={1.5} />}
+              title="RelayRunner Delivery"
+              description="Busy in class? A fellow student can deliver the item to you in minutes."
+            />
+            <WhyFeatureItem
+              icon={<MapPin className="h-7 w-7 text-orange-600" strokeWidth={1.5} />}
+              title="Preset Pickup Spots"
+              description="Meet at safe, campus-known locations like the library, canteen, or hostel gate."
+            />
+            <WhyFeatureItem
+              icon={<Backpack className="h-7 w-7 text-orange-600" strokeWidth={1.5} />}
+              title="Lost & Found System"
+              description="A dedicated board to report and recover lost items faster."
+            />
+          </div>
         </div>
       </section>
 
@@ -171,17 +177,17 @@ export default function LandingPage() {
   );
 }
 
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
+function WhyFeatureItem({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
   return (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader>
-        <div className="mb-4">{icon}</div>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <CardDescription>{description}</CardDescription>
-      </CardContent>
-    </Card>
+    <div className="flex items-start gap-4">
+      <div className="flex-shrink-0 mt-1">
+        {icon}
+      </div>
+      <div>
+        <h3 className="font-bold text-xl text-gray-900 mb-2">{title}</h3>
+        <p className="text-gray-600 leading-relaxed">{description}</p>
+      </div>
+    </div>
   );
 }
 
